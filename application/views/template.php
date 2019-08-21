@@ -95,7 +95,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?=site_url('auth/logout')?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -182,9 +182,10 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Stocks</a></li>
             </ul>
         </li>
-        
+        <?php if($this->session->userdata('level') == 1) : ?>
         <li class="header">SETTINGS</li>
         <li><a href="#"><i class="fa fa-user"></i><span>Users</span></a></li>
+        <?php endif; ?>
       </ul>
     </section>
     <!-- /.sidebar -->
