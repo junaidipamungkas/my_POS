@@ -13,6 +13,31 @@ class Supplier_m extends CI_Model
         return $query;
     }
 
+    public function add($post)
+    {
+        $params = [
+            'name' => $post['supplier_name'],
+            'phone' => $post['phone'],
+            'address' => $post['addr'],
+            'description' => empty($post['desc']) ? null : $post['desc']
+        ];
+
+        $this->db->insert('supplier', $params);
+    }
+
+    public function edit($post)
+    {
+        $params = [
+            'name' => $post['supplier_name'],
+            'phone' => $post['phone'],
+            'address' => $post['addr'],
+            'description' => empty($post['desc']) ? null : $post['desc'],
+            'updated' =>date('Y-m-d H:i:s')
+        ];
+        $this->db->where('supplier_id', $post['id']);
+        $this->db->update('supplier', $params);
+    }
+
     public function del($id)
     {
         $this->db->where('supplier_id', $id);
