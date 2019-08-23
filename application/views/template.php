@@ -141,7 +141,7 @@
           </a>
         </li>
         <li>
-          <a href="">
+          <a href="<?=site_url('supplier')?>">
             <i class="fa fa-truck"></i> <span>Suppliers</span>
           </a>
         </li>
