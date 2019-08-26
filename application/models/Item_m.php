@@ -41,6 +41,9 @@ class Item_m extends CI_Model
             'price' => $post['price'],
             'updated' => date('Y-m-d H:i:s')
         ];
+        if ($post['image'] != null) {
+            $params['image'] = $post['image'];
+        }
         $this->db->where('item_id', $post['id']);
         $this->db->update('p_item', $params);
     }
