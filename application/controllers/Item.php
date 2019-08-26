@@ -26,6 +26,7 @@ class Item extends CI_Controller {
 		$item->barcode = null;
 		$item->name = null;
         $item->price = null;
+        $item->category_id = null;
         
         $query_category = $this->category_m->get();
         $query_unit = $this->unit_m->get();
@@ -74,9 +75,19 @@ class Item extends CI_Controller {
 	{
 		$post = $this->input->post(null, TRUE);
 		if (isset($_POST['add'])) {
-			$this->item_m->add($post);
+			if ($this->item_m->check_barcode($post['barcode'])->num_rows() > 0) {
+				$this->session->set_flashdata('error', "Barcode $post[barcode] sudah dipakai barang lain.");
+				redirect('item/add');
+			} else {
+				$this->item_m->add($post);
+			}
 		} else if (isset($_POST['edit'])) {
-			$this->item_m->edit($post);
+			if ($this->item_m->check_barcode($post['barcode'], $post['id'])->num_rows() > 0) {
+				$this->session->set_flashdata('error', "Barcode $post[barcode] sudah dipakai barang lain.");
+				redirect('item/edit/'.$post['id']);				
+			} else {
+				$this->item_m->edit($post);
+			}
 		}
 
 		if ($this->db->affected_rows() > 0) {
